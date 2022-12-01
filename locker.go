@@ -12,7 +12,7 @@ import (
 
 var client *clientv3.Client
 
-func Setup(endpoints []string) {
+func Init(endpoints []string) {
 	var err error
 
 	client, err = clientv3.New(clientv3.Config{

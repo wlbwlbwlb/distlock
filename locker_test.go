@@ -1,12 +1,13 @@
 package dlock
 
 import (
-	"github.com/wl955/log"
 	"testing"
+
+	"github.com/wl955/log"
 )
 
 func init() {
-	Setup([]string{"http://127.0.0.1:2379"})
+	Init([]string{"http://127.0.0.1:2379"})
 }
 
 func TestNewLocker(t *testing.T) {
