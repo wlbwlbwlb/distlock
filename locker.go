@@ -1,6 +1,7 @@
 package dlock
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"sync"
@@ -34,6 +35,9 @@ func Init(opts ...Option) {
 }
 
 func NewLocker(pfx string, ttl int) (locker sync.Locker, err error) {
+	if nil == client {
+		return nil, errors.New("init first")
+	}
 	// WithTTL configures the session's TTL in seconds.
 	session, err := concurrency.NewSession(client, concurrency.WithTTL(ttl))
 	if err != nil {
