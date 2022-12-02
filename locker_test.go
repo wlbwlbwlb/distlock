@@ -7,7 +7,10 @@ import (
 )
 
 func init() {
-	Init([]string{"http://127.0.0.1:2379"})
+	//Init([]string{"http://127.0.0.1:2379"})
+	Init(
+		WithEndpoints([]string{"http://127.0.0.1:2379"}),
+	)
 }
 
 func TestNewLocker(t *testing.T) {

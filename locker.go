@@ -10,14 +10,22 @@ import (
 	"go.etcd.io/etcd/client/v3/concurrency"
 )
 
+var conf clientv3.Config
+
 var client *clientv3.Client
 
-func Init(endpoints []string) {
+func Init(opts ...Option) {
+	custom := Options{}
+
+	for _, o := range opts {
+		o.apply(&custom)
+	}
+
 	var err error
 
-	client, err = clientv3.New(clientv3.Config{
-		Endpoints: endpoints,
-	})
+	client, err = clientv3.New(
+		conf,
+	)
 	if err != nil {
 		log.Fatalf("failed to create an etcd client: %s\n", err)
 	}
@@ -31,7 +39,9 @@ func NewLocker(pfx string, ttl int) (locker sync.Locker, err error) {
 	if err != nil {
 		return
 	}
+
 	locker = concurrency.NewLocker(session, pfx)
+
 	return
 }
 
@@ -47,9 +57,11 @@ func test() {
 		fmt.Printf("failed to create a session: %s\n", err)
 		os.Exit(1)
 	}
+
 	locker := concurrency.NewLocker(session, "/lock")
 	locker.Lock()
 	defer locker.Unlock()
+
 	version := session.Lease()
 	fmt.Printf("acquired lock, version: %d\n", version)
 }
