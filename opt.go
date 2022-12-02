@@ -12,7 +12,7 @@ type Endpoints struct {
 }
 
 func (ep Endpoints) apply(*Options) {
-	conf.Endpoints = ep.endpoints
+	_opts.Endpoints = ep.endpoints
 }
 
 func WithEndpoints(endpoints []string) Option {

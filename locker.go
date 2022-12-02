@@ -11,7 +11,7 @@ import (
 	"go.etcd.io/etcd/client/v3/concurrency"
 )
 
-var conf clientv3.Config
+var _opts clientv3.Config
 
 var client *clientv3.Client
 
@@ -25,7 +25,7 @@ func Init(opts ...Option) {
 	var err error
 
 	client, err = clientv3.New(
-		conf,
+		_opts,
 	)
 	if err != nil {
 		log.Fatalf("failed to create an etcd client: %s\n", err)
