@@ -11,7 +11,7 @@ type Endpoints struct {
 	endpoints []string
 }
 
-func (ep Endpoints) apply(opts *Options) {
+func (ep Endpoints) apply(*Options) {
 	conf.Endpoints = ep.endpoints
 }
 
