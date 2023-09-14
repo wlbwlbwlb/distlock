@@ -1,4 +1,4 @@
-package dlock
+package distlock
 
 type Options struct {
 }
@@ -11,8 +11,8 @@ type Endpoints struct {
 	endpoints []string
 }
 
-func (ep Endpoints) apply(*Options) {
-	_opts.Endpoints = ep.endpoints
+func (o Endpoints) apply(*Options) {
+	_opts.Endpoints = o.endpoints
 }
 
 func WithEndpoints(endpoints []string) Option {
